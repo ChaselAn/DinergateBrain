@@ -1,6 +1,6 @@
 import Foundation
 
-public class StuckMonitor: NSObject {
+public class StuckMonitor: BaseMonitor {
 
     public enum StuckType {
         case single // once, blocked for 250ms
@@ -10,9 +10,9 @@ public class StuckMonitor: NSObject {
     public static let shared = StuckMonitor()
     public var stuckHappening: ((StuckType) -> Void)?
 
-    public func start() {
+    public override func start() {
+        super.start()
         CFRunLoopAddObserver(CFRunLoopGetMain(), observer, CFRunLoopMode.commonModes)
-        isStarted = true
 
         self.timeOutQueue.async { [weak self] in
             guard let self = self else { return }
@@ -48,8 +48,8 @@ public class StuckMonitor: NSObject {
         }
     }
 
-    public func stop() {
-        isStarted = false
+    public override func stop() {
+        super.stop()
         CFRunLoopRemoveObserver(CFRunLoopGetMain(), observer, CFRunLoopMode.commonModes)
     }
 
@@ -59,7 +59,6 @@ public class StuckMonitor: NSObject {
     private let singleSemaphore = DispatchSemaphore(value: 1)
     private let fiveSemaphore = DispatchSemaphore(value: 1)
     private let timeOutQueue = DispatchQueue(label: "StuckMonitor_timeOutQueue", qos: .userInteractive, attributes: .concurrent)
-    private var isStarted = false
 
     private override init() {
         super.init()

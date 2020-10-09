@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB394C6C253061E0007B50B1 /* CrashMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB394C6B253061E0007B50B1 /* CrashMonitor.swift */; };
+		FB394C7525306D03007B50B1 /* BaseMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB394C7425306D03007B50B1 /* BaseMonitor.swift */; };
+		FB394C8325307586007B50B1 /* DinergateBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB394C8225307586007B50B1 /* DinergateBrain.swift */; };
 		FB82049C25301D66009B4BF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82049B25301D66009B4BF3 /* AppDelegate.swift */; };
 		FB82049E25301D66009B4BF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82049D25301D66009B4BF3 /* SceneDelegate.swift */; };
 		FB8204A025301D66009B4BF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82049F25301D66009B4BF3 /* ViewController.swift */; };
@@ -79,6 +82,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FB394C6B253061E0007B50B1 /* CrashMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashMonitor.swift; sourceTree = "<group>"; };
+		FB394C7425306D03007B50B1 /* BaseMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMonitor.swift; sourceTree = "<group>"; };
+		FB394C8225307586007B50B1 /* DinergateBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinergateBrain.swift; sourceTree = "<group>"; };
 		FB82049825301D66009B4BF3 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB82049B25301D66009B4BF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FB82049D25301D66009B4BF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -206,10 +212,13 @@
 			isa = PBXGroup;
 			children = (
 				FB8204D525301D9C009B4BF3 /* DinergateBrain.h */,
+				FB394C8225307586007B50B1 /* DinergateBrain.swift */,
 				FB8204F525301DB6009B4BF3 /* StuckMonitor.swift */,
+				FB394C6B253061E0007B50B1 /* CrashMonitor.swift */,
 				FB82050125301DC6009B4BF3 /* FPSMonitor.swift */,
 				FB82050725301DD2009B4BF3 /* CPUMonitor.swift */,
 				FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */,
+				FB394C7425306D03007B50B1 /* BaseMonitor.swift */,
 				FB8204D625301D9C009B4BF3 /* Info.plist */,
 			);
 			path = DinergateBrain;
@@ -456,7 +465,10 @@
 			files = (
 				FB8204F625301DB6009B4BF3 /* StuckMonitor.swift in Sources */,
 				FB82050E25301E7A009B4BF3 /* MonitorWeakTarget.swift in Sources */,
+				FB394C6C253061E0007B50B1 /* CrashMonitor.swift in Sources */,
+				FB394C7525306D03007B50B1 /* BaseMonitor.swift in Sources */,
 				FB82050225301DC6009B4BF3 /* FPSMonitor.swift in Sources */,
+				FB394C8325307586007B50B1 /* DinergateBrain.swift in Sources */,
 				FB82050825301DD2009B4BF3 /* CPUMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

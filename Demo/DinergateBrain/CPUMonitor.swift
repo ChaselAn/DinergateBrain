@@ -1,7 +1,7 @@
 import Foundation
 
 /*
-public class CPUMonitor: NSObject {
+public class CPUMonitor: BaseMonitor {
 
     public static let shared = CPUMonitor()
     public var observable = MonitorObservable<Float>(value: 0)

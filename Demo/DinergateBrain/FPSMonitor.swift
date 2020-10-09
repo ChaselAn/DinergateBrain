@@ -1,11 +1,12 @@
 import UIKit
 
-public class FPSMonitor: NSObject {
+public class FPSMonitor: BaseMonitor {
 
     public static let shared = FPSMonitor()
     public var fpsChanged: ((Int) -> Void)?
 
-    public func start() {
+    public override func start() {
+        super.start()
         if link != nil {
             stop()
         }
@@ -13,7 +14,8 @@ public class FPSMonitor: NSObject {
         link?.add(to: RunLoop.main, forMode: .common)
     }
 
-    public func stop() {
+    public override func stop() {
+        super.stop()
         link?.remove(from: RunLoop.main, forMode: .common)
         link?.invalidate()
         link = nil
