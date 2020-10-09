@@ -3,7 +3,7 @@ import UIKit
 public class FPSMonitor: NSObject {
 
     public static let shared = FPSMonitor()
-    private var observable = MonitorObservable<Int>(value: 60)
+    public var fpsChanged: ((Int) -> Void)?
 
     public func start() {
         if link != nil {
@@ -41,6 +41,6 @@ public class FPSMonitor: NSObject {
         guard dif > 0 else { return }
         self.lastTimestamp = link.timestamp
         let fps = Int(1 / dif)
-        observable.update(with: fps)
+        fpsChanged?(fps)
     }
 }

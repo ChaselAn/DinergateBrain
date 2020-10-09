@@ -21,7 +21,6 @@
 		FB8204E825301D9D009B4BF3 /* DinergateBrain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8204D325301D9C009B4BF3 /* DinergateBrain.framework */; };
 		FB8204E925301D9D009B4BF3 /* DinergateBrain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB8204D325301D9C009B4BF3 /* DinergateBrain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FB8204F625301DB6009B4BF3 /* StuckMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8204F525301DB6009B4BF3 /* StuckMonitor.swift */; };
-		FB8204FC25301DC0009B4BF3 /* MonitorObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB8204FB25301DC0009B4BF3 /* MonitorObservable.swift */; };
 		FB82050225301DC6009B4BF3 /* FPSMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050125301DC6009B4BF3 /* FPSMonitor.swift */; };
 		FB82050825301DD2009B4BF3 /* CPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050725301DD2009B4BF3 /* CPUMonitor.swift */; };
 		FB82050E25301E7A009B4BF3 /* MonitorWeakTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */; };
@@ -101,7 +100,6 @@
 		FB8204E225301D9D009B4BF3 /* DinergateBrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinergateBrainTests.swift; sourceTree = "<group>"; };
 		FB8204E425301D9D009B4BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB8204F525301DB6009B4BF3 /* StuckMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StuckMonitor.swift; sourceTree = "<group>"; };
-		FB8204FB25301DC0009B4BF3 /* MonitorObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorObservable.swift; sourceTree = "<group>"; };
 		FB82050125301DC6009B4BF3 /* FPSMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPSMonitor.swift; sourceTree = "<group>"; };
 		FB82050725301DD2009B4BF3 /* CPUMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUMonitor.swift; sourceTree = "<group>"; };
 		FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorWeakTarget.swift; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 				FB82050125301DC6009B4BF3 /* FPSMonitor.swift */,
 				FB82050725301DD2009B4BF3 /* CPUMonitor.swift */,
 				FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */,
-				FB8204FB25301DC0009B4BF3 /* MonitorObservable.swift */,
 				FB8204D625301D9C009B4BF3 /* Info.plist */,
 			);
 			path = DinergateBrain;
@@ -460,7 +457,6 @@
 				FB8204F625301DB6009B4BF3 /* StuckMonitor.swift in Sources */,
 				FB82050E25301E7A009B4BF3 /* MonitorWeakTarget.swift in Sources */,
 				FB82050225301DC6009B4BF3 /* FPSMonitor.swift in Sources */,
-				FB8204FC25301DC0009B4BF3 /* MonitorObservable.swift in Sources */,
 				FB82050825301DD2009B4BF3 /* CPUMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,8 +8,7 @@ public class StuckMonitor: NSObject {
     }
 
     public static let shared = StuckMonitor()
-    public var blocked: ((StuckType) -> Void)?
-    public var observable = MonitorObservable<StuckType?>(value: nil)
+    public var stuckHappening: ((StuckType) -> Void)?
 
     public func start() {
         CFRunLoopAddObserver(CFRunLoopGetMain(), observer, CFRunLoopMode.commonModes)
@@ -24,7 +23,7 @@ public class StuckMonitor: NSObject {
                 case .success:
                     break
                 case .timedOut:
-                    self.observable.update(with: .single)
+                    self.stuckHappening?(.single)
                 }
             }
         }
@@ -43,7 +42,7 @@ public class StuckMonitor: NSObject {
                         break
                     }
                     self.timeOutCount = 0
-                    self.observable.update(with: .continuous)
+                    self.stuckHappening?(.continuous)
                 }
             }
         }
