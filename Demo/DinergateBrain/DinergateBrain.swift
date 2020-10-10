@@ -17,7 +17,7 @@ final public class DinergateBrain {
         }
     }
     
-    public let shared = DinergateBrain()
+    public static let shared = DinergateBrain()
     
     public func start(items: Items = .all) {
         if items.contains(.stuck) {
