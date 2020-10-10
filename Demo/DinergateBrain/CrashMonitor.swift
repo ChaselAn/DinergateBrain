@@ -3,6 +3,7 @@ import Foundation
 public class CrashMonitor: BaseMonitor {
 
     public static let shared = CrashMonitor()
+    public var crashHappening: (() -> Void)?
 
     private var oldAppExceptionHandler : (@convention(c) (NSException) -> Void)?
     
@@ -41,6 +42,7 @@ public class CrashMonitor: BaseMonitor {
             return
         }
         
+        shared.crashHappening?()
 //        let callStack = exteption.callStackSymbols.joined(separator: "\r")
 //        let reason = exteption.reason ?? ""
 //        let name = exteption.name
@@ -61,7 +63,7 @@ public class CrashMonitor: BaseMonitor {
         guard shared.isStarted else {
             return
         }
-        
+        shared.crashHappening?()
         killApp()
     }
     
