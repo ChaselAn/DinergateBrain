@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = 'DinergateBrain'
-    s.version      = '0.1.0-pre'
+    s.version      = '0.1.0'
     s.summary      = 'APM'
     s.homepage     = 'https://github.com/ChaselAn/DinergateBrain'
     s.license      = 'MIT'
