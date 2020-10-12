@@ -10,6 +10,7 @@ final public class DinergateBrain {
 //        static let cpu = Items(rawValue: 1 << 3)
         
         public static let all: Items = [.stuck, .crash, .fps]
+        public static let `default`: Items = [.stuck, .crash]
         
         public let rawValue: Int
         public init(rawValue: Int) {
@@ -19,7 +20,7 @@ final public class DinergateBrain {
     
     public static let shared = DinergateBrain()
     
-    public func start(items: Items = .all) {
+    public func start(items: Items = .default) {
         if items.contains(.stuck) {
             StuckMonitor.shared.start()
         }
