@@ -20,8 +20,9 @@ final public class DinergateBrain {
     
     public static let shared = DinergateBrain()
     
-    public func start(items: Items = .default) {
+    public func start(items: Items = .default, config: Config = .default) {
         if items.contains(.stuck) {
+            StuckMonitor.shared.threshold = config.stuckThreshold
             StuckMonitor.shared.start()
         }
         if items.contains(.crash) {
@@ -36,5 +37,20 @@ final public class DinergateBrain {
         StuckMonitor.shared.stop()
         CrashMonitor.shared.stop()
         FPSMonitor.shared.stop()
+    }
+}
+
+extension DinergateBrain {
+    public class Config {
+        public var stuckThreshold: StuckMonitor.Threshold = StuckMonitor.Threshold()
+        
+        public static let `default` = Config()
+        
+        public init() {}
+        
+        public func setStuckThreshold(_ block: (StuckMonitor.Threshold) -> Void) -> Config {
+            block(stuckThreshold)
+            return self
+        }
     }
 }

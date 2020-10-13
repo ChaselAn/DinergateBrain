@@ -17,7 +17,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        DinergateBrain.shared.start()
+        StuckMonitor.shared.stuckHappening = { type in
+//            switch type {
+//            case .custom(time: let time, timeout: let timeout):
+//                print("--------------", time, timeout)
+//            }
+        }
+        
         
         CrashMonitor.shared.crashHappening = { type in
             switch type {
@@ -35,14 +41,13 @@ class ViewController: UIViewController {
             
         }
         
-        let aView = UIView()
-        let bView = UIView()
-        
-        view.addSubview(aView)
-        aView.translatesAutoresizingMaskIntoConstraints = false
-        aView.leadingAnchor.constraint(equalTo: bView.leadingAnchor).isActive = true
+//        let aView = UIView()
+//        let bView = UIView()
+//
+//        view.addSubview(aView)
+//                aView.translatesAutoresizingMaskIntoConstraints = false
+//        aView.leadingAnchor.constraint(equalTo: bView.leadingAnchor).isActive = true
     }
 
 
 }
-

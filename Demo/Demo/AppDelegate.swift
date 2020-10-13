@@ -6,11 +6,21 @@
 //
 
 import UIKit
+import DinergateBrain
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        let config = DinergateBrain.Config().setStuckThreshold({ threshold in
+            threshold.continuousThreshold = nil
+        })
+//        config.stuckThreshold = StuckMonitor.Threshold()
+        
+        DinergateBrain.shared.start(config: config)
+        return true
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
