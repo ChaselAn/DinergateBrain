@@ -27,7 +27,7 @@ public class StuckMonitor: BaseMonitor {
         let singleTimeout = self.threshold.singleTimeout
         self.timeOutQueue.async { [weak self] in
             guard let self = self else { return }
-            while self.isStarted {
+            while self.isStarted && self.runloopStarted {
                 let res = self.singleSemaphore.wait(wallTimeout: .now() + singleTimeout)
                 switch res {
                 case .success:
@@ -41,7 +41,7 @@ public class StuckMonitor: BaseMonitor {
         if let continuousThreshold = threshold.continuousThreshold {
             self.timeOutQueue.async { [weak self] in
                 guard let self = self else { return }
-                while self.isStarted {
+                while self.isStarted && self.runloopStarted {
                     let res = self.fiveSemaphore.wait(timeout: DispatchTime.now() + continuousThreshold.timeout)
                     switch res {
                     case .success:
@@ -65,7 +65,7 @@ public class StuckMonitor: BaseMonitor {
     }
 
     private var observer: CFRunLoopObserver!
-
+    private var runloopStarted = false
     private var timeOutCount = 0
     private let singleSemaphore = DispatchSemaphore(value: 1)
     private let fiveSemaphore = DispatchSemaphore(value: 1)
@@ -76,6 +76,7 @@ public class StuckMonitor: BaseMonitor {
 
         observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.beforeSources.rawValue | CFRunLoopActivity.afterWaiting.rawValue, true, 0) { [weak self] (_, _) in
             guard let self = self else { return }
+            self.runloopStarted = true
             self.fiveSemaphore.signal()
             self.singleSemaphore.signal()
         }
