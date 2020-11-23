@@ -27,6 +27,9 @@
 		FB82050225301DC6009B4BF3 /* FPSMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050125301DC6009B4BF3 /* FPSMonitor.swift */; };
 		FB82050825301DD2009B4BF3 /* CPUMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050725301DD2009B4BF3 /* CPUMonitor.swift */; };
 		FB82050E25301E7A009B4BF3 /* MonitorWeakTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */; };
+		FBBCF66D256BC2AA00ACF488 /* BSBacktraceLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = FBBCF66A256BC2AA00ACF488 /* BSBacktraceLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBBCF66E256BC2AA00ACF488 /* BSBacktraceLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = FBBCF66B256BC2AA00ACF488 /* BSBacktraceLogger.m */; };
+		FBBCF66F256BC2AA00ACF488 /* StackBacktrace.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBBCF66C256BC2AA00ACF488 /* StackBacktrace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +104,6 @@
 		FB8204BF25301D67009B4BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB8204D325301D9C009B4BF3 /* DinergateBrain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DinergateBrain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8204D525301D9C009B4BF3 /* DinergateBrain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DinergateBrain.h; sourceTree = "<group>"; };
-		FB8204D625301D9C009B4BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB8204DB25301D9D009B4BF3 /* DinergateBrainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DinergateBrainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB8204E225301D9D009B4BF3 /* DinergateBrainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinergateBrainTests.swift; sourceTree = "<group>"; };
 		FB8204E425301D9D009B4BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +111,9 @@
 		FB82050125301DC6009B4BF3 /* FPSMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FPSMonitor.swift; sourceTree = "<group>"; };
 		FB82050725301DD2009B4BF3 /* CPUMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CPUMonitor.swift; sourceTree = "<group>"; };
 		FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitorWeakTarget.swift; sourceTree = "<group>"; };
+		FBBCF66A256BC2AA00ACF488 /* BSBacktraceLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBacktraceLogger.h; sourceTree = "<group>"; };
+		FBBCF66B256BC2AA00ACF488 /* BSBacktraceLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBacktraceLogger.m; sourceTree = "<group>"; };
+		FBBCF66C256BC2AA00ACF488 /* StackBacktrace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackBacktrace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +224,7 @@
 				FB82050725301DD2009B4BF3 /* CPUMonitor.swift */,
 				FB82050D25301E7A009B4BF3 /* MonitorWeakTarget.swift */,
 				FB394C7425306D03007B50B1 /* BaseMonitor.swift */,
-				FB8204D625301D9C009B4BF3 /* Info.plist */,
+				FBBCF669256BC2AA00ACF488 /* StackBacktrace */,
 			);
 			path = DinergateBrain;
 			sourceTree = "<group>";
@@ -233,6 +238,16 @@
 			path = DinergateBrainTests;
 			sourceTree = "<group>";
 		};
+		FBBCF669256BC2AA00ACF488 /* StackBacktrace */ = {
+			isa = PBXGroup;
+			children = (
+				FBBCF66A256BC2AA00ACF488 /* BSBacktraceLogger.h */,
+				FBBCF66B256BC2AA00ACF488 /* BSBacktraceLogger.m */,
+				FBBCF66C256BC2AA00ACF488 /* StackBacktrace.swift */,
+			);
+			path = StackBacktrace;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -240,6 +255,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBBCF66D256BC2AA00ACF488 /* BSBacktraceLogger.h in Headers */,
 				FB8204E525301D9D009B4BF3 /* DinergateBrain.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +482,8 @@
 				FB8204F625301DB6009B4BF3 /* StuckMonitor.swift in Sources */,
 				FB82050E25301E7A009B4BF3 /* MonitorWeakTarget.swift in Sources */,
 				FB394C6C253061E0007B50B1 /* CrashMonitor.swift in Sources */,
+				FBBCF66F256BC2AA00ACF488 /* StackBacktrace.swift in Sources */,
+				FBBCF66E256BC2AA00ACF488 /* BSBacktraceLogger.m in Sources */,
 				FB394C7525306D03007B50B1 /* BaseMonitor.swift in Sources */,
 				FB82050225301DC6009B4BF3 /* FPSMonitor.swift in Sources */,
 				FB394C8325307586007B50B1 /* DinergateBrain.swift in Sources */,
@@ -782,7 +800,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DinergateBrain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -811,7 +828,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = DinergateBrain/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

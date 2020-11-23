@@ -13,9 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        let config = DinergateBrain.Config().setStuckThreshold({ threshold in
-            threshold.continuousThreshold = nil
-        })
+        let config = DinergateBrain.Config()
 //        config.stuckThreshold = StuckMonitor.Threshold()
         
         DinergateBrain.shared.start(config: config)

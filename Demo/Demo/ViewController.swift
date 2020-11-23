@@ -17,25 +17,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        StuckMonitor.shared.stuckHappening = { type in
-//            switch type {
-//            case .custom(time: let time, timeout: let timeout):
-//                print("--------------", time, timeout)
-//            }
+        StuckMonitor.shared.stuckHappening = { callstack in
+            print(callstack.all)
         }
         
         
         CrashMonitor.shared.crashHappening = { type in
             switch type {
-            case .exception(let exception):
+            case .exception(let exception, let callStack):
                 print("-------------exception name: \(exception.name), reason: \(exception.reason), userInfo: \(exception.userInfo)")
-                print(exception.callStackSymbols.joined(separator: "\n"))
+                print(callStack.joined(separator: "\n"))
                 print("-------------")
                 let callStack = exception.callStackSymbols.joined(separator: "\n")
 //                DBManager.shared.insertCrash(title: <#T##String#>, callStack: callStack, date: Date())
-            case .singal(let code, let name):
+            case .singal(let code, let name, let callStack):
                 print("-------------singal code: \(code), name: \(name)")
-                print(Thread.callStackSymbols.joined(separator: "\n"))
+                print(callStack.all)
                 print("-------------")
             }
             
