@@ -3,8 +3,8 @@ import Foundation
 public class CrashMonitor: BaseMonitor {
     
     public enum CrashType {
-        case singal(Int32, String) // singal code, singal name
-        case exception(NSException)
+        case singal(Int32, String, ThreadStackBacktrace) // singal code, singal name
+        case exception(NSException, [String])
     }
 
     public static let shared = CrashMonitor()
@@ -46,28 +46,14 @@ public class CrashMonitor: BaseMonitor {
             return
         }
         
-        shared.crashHappening?(.exception(exception))
-//        let callStack = exteption.callStackSymbols.joined(separator: "\r")
-//        let reason = exteption.reason ?? ""
-//        let name = exteption.name
-//        let appinfo = CrashEye.appInfo()
-//
-//
-//        let model = CrashModel(type:CrashModelType.exception,
-//                               name:name.rawValue,
-//                               reason:reason,
-//                               appinfo:appinfo,
-//                               callStack:callStack)
-//        for delegate in CrashEye.delegates {
-//            delegate.delegate?.crashEyeDidCatchCrash(with: model)
-//        }
+        shared.crashHappening?(.exception(exception, exception.callStackSymbols))
     }
     
     private static let handleSignalException: @convention(c) (Int32) -> Void = { signal in
         guard shared.isStarted else {
             return
         }
-        shared.crashHappening?(.singal(signal, name(of: signal)))
+        shared.crashHappening?(.singal(signal, name(of: signal), StackBacktrace.value))
         killApp()
     }
     

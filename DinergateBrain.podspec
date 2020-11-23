@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
     s.authors      = {'ChaselAn' => '865770853@qq.com'}
     s.platform     = :ios, '9.0'
     s.source       = {:git => 'https://github.com/ChaselAn/DinergateBrain.git', :tag => s.version}
-    s.source_files = 'Demo/DinergateBrain/*.swift'
+    s.source_files = 'Demo/DinergateBrain/**/*'
     s.requires_arc = true
     s.swift_version = '5.2'
 end

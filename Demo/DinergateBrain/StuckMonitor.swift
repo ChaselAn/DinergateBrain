@@ -3,13 +3,24 @@ import Foundation
 public class StuckMonitor: BaseMonitor {
     
     public static let shared = StuckMonitor()
-    public var stuckHappening: (() -> Void)?
+    public var stuckHappening: ((ThreadStackBacktrace) -> Void)?
     public var threshold: TimeInterval = 0.4
 
     public override func start() {
         super.start()
+
+        if Thread.current.isMainThread {
+            StackBacktrace.main_thread_id = mach_thread_self()
+        }else {
+            DispatchQueue.main.async {
+                StackBacktrace.main_thread_id = mach_thread_self()
+            }
+        }
+        
         checkThread = StuckCheckThread()
-        checkThread?.start(threshold: threshold, stuckHappening: stuckHappening)
+        checkThread?.start(threshold: threshold, stuckHappening: { [weak self] in
+            self?.stuckHappening?(StackBacktrace.value)
+        })
     }
 
     public override func stop() {
