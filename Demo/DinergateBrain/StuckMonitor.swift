@@ -72,7 +72,7 @@ final class StuckCheckThread: Thread {
             if isRunning {
                 stuckHappening?()
             }
-            semaphore.wait(timeout: .distantFuture)
+            _ = semaphore.wait(timeout: .distantFuture)
         }
     }
 }
