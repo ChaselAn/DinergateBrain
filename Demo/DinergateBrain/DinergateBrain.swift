@@ -42,14 +42,14 @@ final public class DinergateBrain {
 
 extension DinergateBrain {
     public class Config {
-        public var stuckThreshold: StuckMonitor.Threshold = StuckMonitor.Threshold()
+        public var stuckThreshold: TimeInterval = 0.4
         
         public static let `default` = Config()
         
         public init() {}
         
-        public func setStuckThreshold(_ block: (StuckMonitor.Threshold) -> Void) -> Config {
-            block(stuckThreshold)
+        public func setStuckThreshold(_ stuckThreshold: TimeInterval) -> Config {
+            self.stuckThreshold = stuckThreshold
             return self
         }
     }

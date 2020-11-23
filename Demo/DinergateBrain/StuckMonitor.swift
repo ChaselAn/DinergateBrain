@@ -1,84 +1,78 @@
 import Foundation
 
 public class StuckMonitor: BaseMonitor {
-
-    public class Threshold {
-        /// 单次超过250ms的卡顿，算一次卡顿
-        public var singleTimeout: TimeInterval = 0.25
-        /// 连续5次，每次超过50ms的卡顿，也算一次卡顿。 nil为不监测连续卡顿
-        public var continuousThreshold: (time: Int, timeout: TimeInterval)? = (time: 5, timeout: 0.05)
-        
-        public init() {}
-    }
     
-    public enum StuckType {
-        case single // 单词超过阈值的卡顿
-        case continuous // 连续的卡顿
-    }
-
     public static let shared = StuckMonitor()
-    public var stuckHappening: ((StuckType) -> Void)?
-    public var threshold: Threshold = Threshold()
+    public var stuckHappening: (() -> Void)?
+    public var threshold: TimeInterval = 0.4
 
     public override func start() {
         super.start()
-        CFRunLoopAddObserver(CFRunLoopGetMain(), observer, CFRunLoopMode.commonModes)
-
-        let singleTimeout = self.threshold.singleTimeout
-        self.timeOutQueue.async { [weak self] in
-            guard let self = self else { return }
-            while self.isStarted && self.runloopStarted {
-                let res = self.singleSemaphore.wait(wallTimeout: .now() + singleTimeout)
-                switch res {
-                case .success:
-                    break
-                case .timedOut:
-                    self.stuckHappening?(.single)
-                }
-            }
-        }
-
-        if let continuousThreshold = threshold.continuousThreshold {
-            self.timeOutQueue.async { [weak self] in
-                guard let self = self else { return }
-                while self.isStarted && self.runloopStarted {
-                    let res = self.fiveSemaphore.wait(timeout: DispatchTime.now() + continuousThreshold.timeout)
-                    switch res {
-                    case .success:
-                        self.timeOutCount = 0
-                    case .timedOut:
-                        self.timeOutCount += 1
-                        guard self.timeOutCount >= continuousThreshold.time else {
-                            break
-                        }
-                        self.timeOutCount = 0
-                        self.stuckHappening?(.continuous)
-                    }
-                }
-            }
-        }
+        checkThread = StuckCheckThread()
+        checkThread?.start(threshold: threshold, stuckHappening: stuckHappening)
     }
 
     public override func stop() {
         super.stop()
-        CFRunLoopRemoveObserver(CFRunLoopGetMain(), observer, CFRunLoopMode.commonModes)
+        checkThread?.stop()
     }
 
-    private var observer: CFRunLoopObserver!
-    private var runloopStarted = false
-    private var timeOutCount = 0
-    private let singleSemaphore = DispatchSemaphore(value: 1)
-    private let fiveSemaphore = DispatchSemaphore(value: 1)
-    private let timeOutQueue = DispatchQueue(label: "StuckMonitor_timeOutQueue", qos: .userInteractive, attributes: .concurrent)
+    private var checkThread: StuckCheckThread?
+    
+    deinit {
+        checkThread?.cancel()
+    }
+}
 
-    private override init() {
+final class StuckCheckThread: Thread {
+    
+    private var isRunning: Bool {
+        get {
+            objc_sync_enter(lock)
+            let result = _isRunning
+            objc_sync_exit(lock)
+            return result
+        }
+        set {
+            objc_sync_enter(lock)
+            _isRunning = newValue
+            objc_sync_exit(lock)
+        }
+    }
+    
+    private let lock = NSObject()
+    private var _isRunning = false
+    private var semaphore = DispatchSemaphore(value: 0)
+    private var threshold: TimeInterval = 0.4
+    private var stuckHappening: (() -> Void)?
+    
+    override init() {
         super.init()
+        name = "DinergateBrain_StuckCheckThread"
+    }
+    
+    func start(threshold: TimeInterval = 0.4, stuckHappening: (() -> Void)?) {
+        self.threshold = threshold
+        self.stuckHappening = stuckHappening
+        start()
+    }
+    
+    func stop() {
+        cancel()
+    }
 
-        observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, CFRunLoopActivity.beforeSources.rawValue | CFRunLoopActivity.afterWaiting.rawValue, true, 0) { [weak self] (_, _) in
-            guard let self = self else { return }
-            self.runloopStarted = true
-            self.fiveSemaphore.signal()
-            self.singleSemaphore.signal()
+    override func main() {
+        while !isCancelled {
+            isRunning = true
+            DispatchQueue.main.async {
+                self.isRunning = false
+                self.semaphore.signal()
+            }
+            Thread.sleep(forTimeInterval: threshold)
+            if isRunning {
+                stuckHappening?()
+            }
+            semaphore.wait(timeout: .distantFuture)
         }
     }
 }
